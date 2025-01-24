@@ -1,1 +1,3 @@
-# msu_wellness_database
+# MSU Wellness Database Capstone Project
+
+This repository contains the work for our Data Science Capstone Project. In the class, we partner with community partners in industry and academia to work on a semester long project. Our partner is the Unviersity Health and Wellbeing Department at Michigan State Univeristy. They promote the health and wellness of students, faculty, and staff through various programs and initiatives. We are interesting in finding the best practices, and approaches to supporting needs of all students. In our project, we are creating a database that stores infromation about various wellness initiatives and should be able to be queried by leadership at MSU wellness. To acheive this, we will webscrape information across the web in order to colelct data, measure values of suscess for good programs, and be able to generate insights for new programs that can benifit MSU and it's students. 
