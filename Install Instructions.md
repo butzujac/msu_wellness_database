@@ -6,7 +6,7 @@ once intsalled on windows or mac, you should be able to go to the anaconda promp
 ### Installation 
 1. open an anaconda prompt (or terminal on mac)
 2. clone the repo:
-	`git clone https://github.com/github_username/repo_name.git`
+	`[git clone https://github.com/github_username/repo_name.git](https://github.com/butzujac/msu_wellness_database.git)`
 3. navigate to the repository: 
 	`cd msu_wellness_database`
 4. create the environment from the environment.yml file:
