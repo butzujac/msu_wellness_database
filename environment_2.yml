@@ -6,8 +6,8 @@ dependencies:
   - pandas
   - selenium==4.29.0
   - webdriver-manager==4.0.2
-  - beautifulsoup4==0.0.2
-  - spacy==3.8.4
+  - beautifulsoup4
+  - spacy
   - pip:
       -  https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0.tar.gz
       -  urllib3
