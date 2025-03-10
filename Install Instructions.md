@@ -19,5 +19,5 @@ once intsalled on windows or mac, you should be able to go to the anaconda promp
 8. once you are in juypter, you should see the demo.ipynb file, click on the file:
 ![image](https://github.com/user-attachments/assets/bb48511b-0f7b-4c21-9535-386f6d461c7f)
 
-9. inside the file, click anywhere in the first cell, and press `shift`, then `enter` on your keyboard. This will run script. it may take about 5 minutes, but once it is done you will see an example database table downloaded in the `\example` folder. you can open the table with excel on your machine. 
+9. inside the file, click anywhere in the first cell, and press `shift`, then `enter` on your keyboard. This will run script. it may take about 5 minutes. to save the sample csv to your computer, do the same proscess for the second cell. 
 10. (to be added later) after table has been generated for all universities, push the csv file into github repository where the streamlit website will be hosted from. after implemented, community partners can simply go to the website created to view the final product with cleaner formatting/extra features at any time!
