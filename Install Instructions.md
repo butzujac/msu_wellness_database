@@ -1,9 +1,10 @@
 ### Prerequisites
 - anaconda prompt - miniconda install instructions
  https://www.anaconda.com/docs/getting-started/miniconda/install
-once intsalled on windows or mac, you should be able to go to the anaconda prompt 
+once intsalled on windows or mac, you should be able to go to the anaconda prompt on windows. On mac, make sure you can go to anaconda navigator before opening terminal
+
 ### Installation 
-1. open an anaconda prompt
+1. open an anaconda prompt (or terminal on mac)
 2. clone the repo:
 	`git clone https://github.com/github_username/repo_name.git`
 3. navigate to the repository: 
