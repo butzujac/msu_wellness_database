@@ -7,3 +7,7 @@ In our project, we are creating a database that stores information about various
 We are hosting our database on a website for the convenience of our community partners. Coming Soon!
 
 link to install instructions: https://github.com/butzujac/msu_wellness_database/blob/main/Install%20Instructions.md
+
+link to our demo, the backend code for scraping and generating our output data: https://github.com/butzujac/msu_wellness_database/blob/main/examples/demo.ipynb
+
+link to reproducing our figures: https://github.com/butzujac/msu_wellness_database/blob/main/examples/Figures.ipynb
