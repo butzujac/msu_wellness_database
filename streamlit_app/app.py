@@ -88,7 +88,6 @@ with col2:
 with col3: 
     st.plotly_chart(fig3)
 
-st.write("new app test! showing first keywords ")
 keywords = [
     "Food Security", "Housing Stability", "Financial Assistance", "Healthcare Services", "Mental Health Support",
     "Transportation Access", "Personal Care Items", "Childcare Support", "Technology Access", "Clothing & Weather Essentials",
@@ -103,18 +102,21 @@ selected_keyword = st.selectbox('Select a keyword', keywords)
 col1, col2 = st.columns([.01,.99])
 #with col1: 
     #st.write("school name")
+
 with col2: 
     st.write(selected_keyword)
 for i, row in data.iterrows():
-    #with col1:
-        #st.write(f"{row["school_name"]}")
+        #with col1:
+            #st.write(f"{row["school_name"]}")    
         
-    
     with col2:
         count = len(re.findall(r'Occurrence \d+:', row[selected_keyword]))
         if count != 0:
             with st.expander(row["school_name"] + ":         " + f"{count} occurrences"):
-                st.write(row[selected_keyword]) 
+                    st.write(row[selected_keyword]) 
 
+col1, col2 = st.columns([.01,.99])
 
+schools = data["school_name"]
+selected_keyword = st.selectbox('Select a School', schools)
 
