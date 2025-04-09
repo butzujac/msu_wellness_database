@@ -10,4 +10,4 @@ link to our demo, the backend code for scraping and generating our output data: 
 
 link to reproducing our figures: https://github.com/butzujac/msu_wellness_database/blob/main/examples/Figures.ipynb
 
-linkn to msu wellness database website: https://msuwellnessdatabase.streamlit.app/
+link to msu wellness database website: https://msuwellnessdatabase.streamlit.app/
