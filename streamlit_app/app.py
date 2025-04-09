@@ -6,7 +6,9 @@ import plotly.express as px
 st.set_page_config(layout="wide", page_title="Wellness Keyword Dashboard")
 
 # Load data
-data = pd.read_csv("msu_wd_keyword_database.csv")
+url = "https://raw.githubusercontent.com/butzujac/msu_wellness_database/main/msu_wd_keyword_database.csv"
+df = pd.read_csv(url)
+
 
 # Precompute occurrence counts
 def count_occurrences(text):
