@@ -7,7 +7,7 @@ st.set_page_config(layout="wide", page_title="Wellness Keyword Dashboard")
 
 # Load data
 url = "https://raw.githubusercontent.com/butzujac/msu_wellness_database/refs/heads/main/streamlit_app/msu_wd_keyword_database.csv"
-df = pd.read_csv(url)
+data = pd.read_csv(url)
 
 
 # Precompute occurrence counts
