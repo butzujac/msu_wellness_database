@@ -11,3 +11,7 @@ link to our demo, the backend code for scraping and generating our output data: 
 link to reproducing our figures: https://github.com/butzujac/msu_wellness_database/blob/main/examples/Figures.ipynb
 
 link to msu wellness database website: https://msuwellnessdatabase.streamlit.app/
+
+link of our project proposal video: https://www.youtube.com/watch?v=dTlBDLD0lcY
+
+link of our MVP Video: https://www.youtube.com/watch?v=uAcErzgkkxA
