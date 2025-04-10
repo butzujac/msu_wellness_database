@@ -12,6 +12,6 @@ link to reproducing our figures: https://github.com/butzujac/msu_wellness_databa
 
 link to msu wellness database website: https://msuwellnessdatabase.streamlit.app/
 
-link of our project proposal video: https://www.youtube.com/watch?v=dTlBDLD0lcY
+link to our project proposal video: https://www.youtube.com/watch?v=dTlBDLD0lcY
 
-link of our MVP Video: https://www.youtube.com/watch?v=uAcErzgkkxA
+link to our MVP Video: https://www.youtube.com/watch?v=uAcErzgkkxA
