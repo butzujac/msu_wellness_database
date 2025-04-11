@@ -5,6 +5,7 @@ import plotly.express as px
 from PIL import Image
 import base64
 from io import BytesIO
+import requests
 
 st.set_page_config(layout="wide", page_title="MSU Wellness Dashboard")
 
@@ -14,8 +15,8 @@ data = pd.read_csv(url)
 
 # Load and center the logo
 url = "https://raw.githubusercontent.com/butzujac/msu_wellness_database/refs/heads/main/streamlit_app/logo.png"
-#data = pd.read_csv(url)
-logo = Image.open(url)
+response = requests.get(url)
+logo = Image.open(BytesIO(response.content))
 buffered = BytesIO()
 logo.save(buffered, format="PNG")
 logo_base64 = base64.b64encode(buffered.getvalue()).decode()
