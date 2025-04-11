@@ -13,7 +13,9 @@ url = "https://raw.githubusercontent.com/butzujac/msu_wellness_database/refs/hea
 data = pd.read_csv(url)
 
 # Load and center the logo
-logo = Image.open("logo.png")
+url = "https://raw.githubusercontent.com/butzujac/msu_wellness_database/refs/heads/main/streamlit_app/logo.png"
+#data = pd.read_csv(url)
+logo = Image.open(url)
 buffered = BytesIO()
 logo.save(buffered, format="PNG")
 logo_base64 = base64.b64encode(buffered.getvalue()).decode()
