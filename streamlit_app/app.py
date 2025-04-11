@@ -56,7 +56,7 @@ fig2.update_layout(template="plotly_white")
 
 # Top 5 schools
 top_5_df = data.nlargest(5, "Total Mentions")
-fig3 = px.bar(top_5_df, x="school_name", y="Total Mentions", title="Top 5 Schools by Mentions", text="Total Mentions")
+fig3 = px.bar(top_5_df, x="school_name", y="Total Mentions", title="Top 5 Schools by Mentions", text="Total Mentions", labels={"school_name":"School Name"})
 fig3.update_traces(textposition="outside", marker_color="royalblue")
 fig3.update_layout(template="plotly_white")
 
