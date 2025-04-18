@@ -10,7 +10,7 @@ import requests
 st.set_page_config(layout="wide", page_title="MSU Wellness Dashboard")
 
 # Load data
-data_url = "https://raw.githubusercontent.com/butzujac/msu_wellness_database/refs/heads/main/streamlit_app/msu_wd_keyword_database.csv"
+data_url = "https://raw.githubusercontent.com/butzujac/msu_wellness_database/refs/heads/main/docs/msu_wd.csv"
 data = pd.read_csv(data_url)
 
 # Load and center the logo
