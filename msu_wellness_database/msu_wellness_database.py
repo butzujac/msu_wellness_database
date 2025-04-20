@@ -191,19 +191,20 @@ def scrape_university_resources(school_info, keywords, driver, max_links=20, max
     return df_grouped
 
 
-def clean_text_full(raw_text: str, keyword: str) -> str:
+def clean_text_full(raw_text: str, keyword: str, api_key: str) -> str:
     """
     given a prompt, you can apply this function to any string text and return a cleaned version. see clean_database to see implementation
     Returns: 
         cleaned_text: answer from gpt-4o with cleaned text, according to this prompt and raw text
      """
-    client = OpenAI(api_key="api-key-here") # paste your openAI api key into quotues of "api-key-here"
+    client = OpenAI(api_key=api_key)
     prompt = f"""
     You are a data cleaner for a database on univerisity wellness initiatives. Each entry is associated with a **keyword**: "{keyword}".
 
     Your task is to clean the text below. Focus on:
     - Keeping only information **relevant to** "{keyword}", and keeping text which contains the exact match of the keyword
     - remove any occurrences that convey the same mesage or are repetitive
+    - make sure NOT to remove any important information from the occurrences. if you see "{keyword}" within the a sentence, make sure to include it
     - **Removing duplicates**, verbose language, or vague phrases
     - Returning an **organized summary** for each useful occurrence
     - make sure not to add any additonal insights or infomration from the raw text, only add text to ensure proper grammar
@@ -226,7 +227,7 @@ def clean_text_full(raw_text: str, keyword: str) -> str:
         print(f"Error during OpenAI call: {e}")
         return None
 
-def clean_database(data):
+def clean_database(data, api_key):
     """
     This function applies clean_text to each cell in the dataframe with keyword matches. 
 
@@ -239,7 +240,7 @@ def clean_database(data):
     remove_items = ["school_name", "Emails", "Phone Numbers", "Total Mentions"] # only looping through columns that are keywords
     cols_to_clean = [item for item in cols if item not in remove_items]
     for col in cols_to_clean:
-        data.loc[:,col] = data[col].apply(lambda val: clean_text_full(val, col)) # for each keyword column in the dataframe, apply the clean text to each cell
+        data.loc[:,col] = data[col].apply(lambda val: clean_text_full(val, col, api_key=api_key)) # for each keyword column in the dataframe, apply the clean text to each cell
     # recount occurrences in total mentions column, as gpt-4o may have gotten rid of occurences
     data["Total Mentions"] = data.astype(str).apply(lambda row: row.str.count("Occurrence").sum(), axis=1) 
     return data
@@ -279,5 +280,23 @@ def add_new_school(existing_database, school_info, driver):
     remove_items = ["school_name", "Emails", "Phone Numbers", "Total Mentions"]
     keywords = [item for item in cols if item not in remove_items]
     new_school = scrape_university_resources(school_info, keywords=keywords, driver=driver) # scrapes for only one school rather than all
+    new_data = pd.concat([existing_database, new_school], ignore_index=True) # adds to the bottom
+    return new_data
+
+
+def add_new_school_clean(existing_database, school_info, driver, api_key):
+    """
+    this funciton adds a new school to the database. 
+
+    parameters:
+        existing_database(pandas dataframe): database before
+        school_info (dataframe): school information (name and )
+    """
+    ## gathering keywords for new school
+    cols = existing_database.columns.tolist()
+    remove_items = ["school_name", "Emails", "Phone Numbers", "Total Mentions"]
+    keywords = [item for item in cols if item not in remove_items]
+    new_school = scrape_university_resources(school_info, keywords=keywords, driver=driver) # scrapes for only one school rather than all
+    new_school = clean_database(new_school, api_key=api_key)
     new_data = pd.concat([existing_database, new_school], ignore_index=True) # adds to the bottom
     return new_data
