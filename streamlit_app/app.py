@@ -21,6 +21,36 @@ buffered = BytesIO()
 logo.save(buffered, format="PNG")
 logo_base64 = base64.b64encode(buffered.getvalue()).decode()
 
+# Highlight keywords in occurences
+def highlight_keyword(text, keyword):
+    if not isinstance(text, str):
+        return text
+
+    # Highlight the keyword
+    pattern = re.compile(re.escape(keyword), re.IGNORECASE)
+    highlighted = pattern.sub(
+        lambda match: f"<span style='background-color: yellow; font-weight: bold;'>{match.group(0)}</span>",
+        text
+    )
+
+    # Convert raw URLs into clickable links
+    highlighted = re.sub(
+        r'(https?://[^\s]+)',
+        r'<a href="\1" target="_blank">\1</a>',
+        highlighted
+    )
+
+    # Split paragraphs and wrap in <p> tags
+    paragraphs = highlighted.split("\n")
+    formatted = "".join(f"<p>{para.strip()}</p>" for para in paragraphs if para.strip())
+
+    return f"<div>{formatted}</div>"
+
+
+
+
+
+
 st.markdown(
     f"""
     <div style='text-align: center; padding-bottom: 10px;'>
@@ -31,14 +61,16 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# No match keywords
+#  "Housing Stability", "Healthcare Services", "Transportation Access", "Personal Care Items","Childcare Support",
+#  "Technology Access","Clothing & Weather Essentials", "Community & Belonging", "Cooking Supplies", "Legal Support",
+#  "Laundry Access", "Career Resources", "Substance Abuse Support", "Immigration & International Student Support", "Communication Services", "Domestic Violence Resources"
+
 # Keywords and abbreviations
 keywords = [
-    "Food Security", "Housing Stability", "Financial Assistance", "Healthcare Services", "Mental Health Support",
-    "Transportation Access", "Personal Care Items", "Childcare Support", "Technology Access", "Clothing & Weather Essentials",
-    "Academic Support", "Community & Belonging", "School Supplies", "Cooking Supplies", "Cleaning Supplies",
-    "Nutrition Education", "Financial Literacy", "Legal Support", "Crisis Intervention", "Laundry Access",
-    "Career Resources", "Substance Abuse Support", "Financial Counseling", "Emergency Housing", 
-    "Immigration & International Student Support", "Communication Services", "Domestic Violence Resources"
+    "Food Security","Financial Assistance", "Mental Health Support",
+    "Academic Support", "School Supplies", "Cleaning Supplies",
+    "Nutrition Education", "Financial Literacy", "Crisis Intervention", "Financial Counseling", "Emergency Housing"
 ]
 
 abbreviations = {
@@ -85,17 +117,17 @@ with tab1:
     col1, col2, col3 = st.columns(3)
 
     fig1 = px.bar(column_counts.nlargest(5).reset_index().rename(columns={"index": "Term", 0: "Count"}),
-                  x="Term", y="Count", text="Count", title="Top 5 Most Common Terms", range_y=[0, 170])
+                  x="Term", y="Count", text="Count", title="Top 5 Most Common Terms", range_y=[0, 25])
     fig1.update_traces(textposition="outside", marker_color="green")
     fig1.update_layout(template="plotly_white")
 
     fig2 = px.bar(column_counts[column_counts > 0].nsmallest(5).reset_index().rename(columns={"index": "Term", 0: "Count"}),
-                  x="Term", y="Count", text="Count", title="Bottom 5 Terms", range_y=[0, 4])
+                  x="Term", y="Count", text="Count", title="Bottom 5 Terms", range_y=[0, 8])
     fig2.update_traces(textposition="outside", marker_color="green")
     fig2.update_layout(template="plotly_white")
 
     fig3 = px.bar(data.nlargest(5, "Total Mentions"), x="school_name", y="Total Mentions", text="Total Mentions",
-                  title="Top 5 Schools by Mentions", range_y=[0, 110])
+                  title="Top 5 Schools by Mentions", range_y=[0, 20])
     fig3.update_traces(textposition="outside", marker_color="green")
     fig3.update_layout(template="plotly_white")
 
@@ -109,23 +141,26 @@ with tab1:
         count = count_occurrences(row[selected_keyword])
         if count > 0:
             with st.expander(f"{row['school_name']} — {count} occurrence(s)"):
-                st.write(row[selected_keyword])
+                # st.write(row[selected_keyword])
+                highlighted_text = highlight_keyword(row[selected_keyword], selected_keyword)
+                st.markdown(highlighted_text, unsafe_allow_html=True)
 
-    st.markdown("---")
-    text_search = st.text_input("Search mentions for any term (e.g., 'laptop', 'food'):")
-    if text_search:
-        found = False
-        for _, row in data.iterrows():
-            for kw in keywords:
-                val = row[kw]
-                if isinstance(val, str) and text_search.lower() in val.lower():
-                    if not found:
-                        st.markdown("### Matching Mentions:")
-                        found = True
-                    with st.expander(f"{row['school_name']} — {kw}"):
-                        st.write(val)
-        if not found:
-            st.warning("No keyword mentions matched your search.")
+
+    # st.markdown("---")
+    # text_search = st.text_input("Search mentions for any term (e.g., 'laptop', 'food'):")
+    # if text_search:
+    #     found = False
+    #     for _, row in data.iterrows():
+    #         for kw in keywords:
+    #             val = row[kw]
+    #             if isinstance(val, str) and text_search.lower() in val.lower():
+    #                 if not found:
+    #                     st.markdown("### Matching Mentions:")
+    #                     found = True
+    #                 with st.expander(f"{row['school_name']} — {kw}"):
+    #                     st.write(val)
+    #     if not found:
+    #         st.warning("No keyword mentions matched your search.")
 
 # --- TAB 2: School Search ---
 with tab2:
@@ -139,7 +174,10 @@ with tab2:
             value = school_row.iloc[0][kw]
             if isinstance(value, str) and "Occurrence" in value:
                 with st.expander(f"{kw}"):
-                    st.write(value)
+                    # st.write(value)
+                    highlighted = highlight_keyword(value, kw)
+                    st.markdown(highlighted, unsafe_allow_html=True)
+
 
     st.markdown("---")
     school_search = st.text_input("Search by school name or abbreviation:")
@@ -158,6 +196,10 @@ with tab2:
                         value = row[kw]
                         if isinstance(value, str) and "Occurrence" in value:
                             st.markdown(f"**{kw}**")
-                            st.write(value)
+                            # st.write(value)
+                            highlighted = highlight_keyword(value, kw)
+                            st.markdown(highlighted, unsafe_allow_html=True)
+
         else:
             st.warning("No schools matched your search.")
+
