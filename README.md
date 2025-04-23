@@ -4,6 +4,7 @@ This repository contains the work for our Data Science Capstone Project. In this
 
 In our project, we are creating a database that stores information about various wellness initiatives, which will be able to be queried by leadership at MSU Wellness. To achieve this, we will web scrape information across the web to collect data, format the output into a readable database, and compare and contrast other programs using data visualization.
 
+[Install Instructions](Install_Instructions.md)
 link to install instructions: https://github.com/butzujac/msu_wellness_database/blob/main/Install_Instructions.md
 
 link to our demo, the backend code for scraping and generating our output data: https://github.com/butzujac/msu_wellness_database/blob/main/examples/demo.ipynb
